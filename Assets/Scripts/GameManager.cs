@@ -31,28 +31,6 @@ public class GameManager : MonoBehaviour
         transform.position += new Vector3(cameraSpeed * Time.deltaTime, 0, 0);
     }
 
-    //public void RestartGame()
-    //{
-    //    Debug.Log("Attempting to restart the game...");
-    //    if (gameOverScreen != null)
-    //    {
-    //        gameOverScreen.SetActive(false); // Hide the Game Over screen
-    //        //backgroundMusic.Play();
-    //    }
-    //    Time.timeScale = 1; // Ensure time is set to normal
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
-
-    //    // Reset the ScoreManager
-    //    ScoreManager scoreManager = GameObject.FindObjectOfType<ScoreManager>();
-    //    if (scoreManager != null)
-    //    {
-    //        scoreManager.ResetGame();
-    //    }
-
-    //    Debug.Log("Restarting game...");
-
-    //}
-
     public void RestartGame()
     {
         Debug.Log("Attempting to restart the game...");
@@ -115,7 +93,27 @@ public class GameManager : MonoBehaviour
         
     }
 
-   
+
+
+    //public void PauseGame()
+    //{
+    //    isPaused = !isPaused;
+    //    if (isPaused)
+    //    {
+    //        Time.timeScale = 0;
+    //        pausePanel.SetActive(true);
+    //        backgroundMusic.Stop();
+    //        Debug.Log("Game Paused");
+    //    }
+    //    else
+    //    {
+    //        Time.timeScale = 1;
+    //        pausePanel.SetActive(false);
+    //        backgroundMusic.Play();
+    //        Debug.Log("Game resumed");
+    //    }
+    //}
+
 
     public void PauseGame()
     {
@@ -124,15 +122,36 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0;
             pausePanel.SetActive(true);
-            backgroundMusic.Stop();
+
+            if (backgroundMusic != null)
+            {
+                backgroundMusic.Stop();
+                Debug.Log("Background music stopped.");
+            }
+            else
+            {
+                Debug.LogWarning("Background music reference is missing.");
+            }
+
             Debug.Log("Game Paused");
         }
         else
         {
             Time.timeScale = 1;
             pausePanel.SetActive(false);
-            backgroundMusic.Play();
+
+            if (backgroundMusic != null)
+            {
+                backgroundMusic.Play();
+                Debug.Log("Background music resumed.");
+            }
+            else
+            {
+                Debug.LogWarning("Background music reference is missing.");
+            }
+
             Debug.Log("Game resumed");
         }
     }
+
 }
